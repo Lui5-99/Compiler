@@ -1,0 +1,989 @@
+Estado 50 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 51 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 52 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 53 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 54 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 55 conflictos: 8 desplazamiento(s)/reducción(ones)
+Estado 56 conflictos: 8 desplazamiento(s)/reducción(ones)
+Estado 57 conflictos: 8 desplazamiento(s)/reducción(ones)
+
+
+Gramática
+
+    0 $accept: program $end
+
+    1 $@1: /* vacío */
+
+    2 program: LET declarations IN $@1 commands END
+
+    3 declarations: /* vacío */
+    4             | INTEGER id_seq IDENTIFIER '.'
+    5             | STRING id_seq IDENTIFIER '.'
+
+    6 id_seq: /* vacío */
+    7       | id_seq IDENTIFIER ','
+
+    8 commands: /* vacío */
+    9         | commands command ';'
+
+   10 command: SKIP
+   11        | READ IDENTIFIER
+   12        | WRITE exp
+   13        | PRINT '(' STRING ')'
+   14        | IDENTIFIER ASSGNOP exp
+
+   15 $@2: /* vacío */
+
+   16 $@3: /* vacío */
+
+   17 $@4: /* vacío */
+
+   18 command: IF exp $@2 THEN commands $@3 ELSE $@4 commands FI
+
+   19 $@5: /* vacío */
+
+   20 $@6: /* vacío */
+
+   21 command: WHILE $@5 exp $@6 DO commands END
+
+   22 exp: NUMBER
+   23    | IDENTIFIER
+   24    | exp '<' exp
+   25    | exp '=' exp
+   26    | exp '>' exp
+   27    | exp '+' exp
+   28    | exp '-' exp
+   29    | exp '*' exp
+   30    | exp '/' exp
+   31    | exp '^' exp
+   32    | '(' exp ')'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'(' (40) 13 32
+')' (41) 13 32
+'*' (42) 29
+'+' (43) 27
+',' (44) 7
+'-' (45) 28
+'.' (46) 4 5
+'/' (47) 30
+';' (59) 9
+'<' (60) 24
+'=' (61) 25
+'>' (62) 26
+'^' (94) 31
+error (256)
+NUMBER (258) 22
+IDENTIFIER (259) 4 5 7 11 14 23
+IF (260) 18
+WHILE (261) 21
+STRING (262) 5 13
+SKIP (263) 10
+THEN (264) 18
+ELSE (265) 18
+FI (266) 18
+DO (267) 21
+END (268) 2 21
+INTEGER (269) 4
+READ (270) 11
+WRITE (271) 12
+LET (272) 2
+IN (273) 2
+PRINT (274) 13
+ASSGNOP (275) 14
+
+
+No terminales con las reglas donde aparecen
+
+$accept (34)
+    en la izquierda: 0
+program (35)
+    en la izquierda: 2, en la derecha: 0
+$@1 (36)
+    en la izquierda: 1, en la derecha: 2
+declarations (37)
+    en la izquierda: 3 4 5, en la derecha: 2
+id_seq (38)
+    en la izquierda: 6 7, en la derecha: 4 5 7
+commands (39)
+    en la izquierda: 8 9, en la derecha: 2 9 18 21
+command (40)
+    en la izquierda: 10 11 12 13 14 18 21, en la derecha: 9
+$@2 (41)
+    en la izquierda: 15, en la derecha: 18
+$@3 (42)
+    en la izquierda: 16, en la derecha: 18
+$@4 (43)
+    en la izquierda: 17, en la derecha: 18
+$@5 (44)
+    en la izquierda: 19, en la derecha: 21
+$@6 (45)
+    en la izquierda: 20, en la derecha: 21
+exp (46)
+    en la izquierda: 22 23 24 25 26 27 28 29 30 31 32, en la derecha:
+    12 14 18 21 24 25 26 27 28 29 30 31 32
+
+
+estado 0
+
+    0 $accept: . program $end
+
+    LET  desplazar e ir al estado 1
+
+    program  ir al estado 2
+
+
+estado 1
+
+    2 program: LET . declarations IN $@1 commands END
+
+    STRING   desplazar e ir al estado 3
+    INTEGER  desplazar e ir al estado 4
+
+    $default  reduce usando la regla 3 (declarations)
+
+    declarations  ir al estado 5
+
+
+estado 2
+
+    0 $accept: program . $end
+
+    $end  desplazar e ir al estado 6
+
+
+estado 3
+
+    5 declarations: STRING . id_seq IDENTIFIER '.'
+
+    $default  reduce usando la regla 6 (id_seq)
+
+    id_seq  ir al estado 7
+
+
+estado 4
+
+    4 declarations: INTEGER . id_seq IDENTIFIER '.'
+
+    $default  reduce usando la regla 6 (id_seq)
+
+    id_seq  ir al estado 8
+
+
+estado 5
+
+    2 program: LET declarations . IN $@1 commands END
+
+    IN  desplazar e ir al estado 9
+
+
+estado 6
+
+    0 $accept: program $end .
+
+    $default  aceptar
+
+
+estado 7
+
+    5 declarations: STRING id_seq . IDENTIFIER '.'
+    7 id_seq: id_seq . IDENTIFIER ','
+
+    IDENTIFIER  desplazar e ir al estado 10
+
+
+estado 8
+
+    4 declarations: INTEGER id_seq . IDENTIFIER '.'
+    7 id_seq: id_seq . IDENTIFIER ','
+
+    IDENTIFIER  desplazar e ir al estado 11
+
+
+estado 9
+
+    2 program: LET declarations IN . $@1 commands END
+
+    $default  reduce usando la regla 1 ($@1)
+
+    $@1  ir al estado 12
+
+
+estado 10
+
+    5 declarations: STRING id_seq IDENTIFIER . '.'
+    7 id_seq: id_seq IDENTIFIER . ','
+
+    '.'  desplazar e ir al estado 13
+    ','  desplazar e ir al estado 14
+
+
+estado 11
+
+    4 declarations: INTEGER id_seq IDENTIFIER . '.'
+    7 id_seq: id_seq IDENTIFIER . ','
+
+    '.'  desplazar e ir al estado 15
+    ','  desplazar e ir al estado 14
+
+
+estado 12
+
+    2 program: LET declarations IN $@1 . commands END
+
+    $default  reduce usando la regla 8 (commands)
+
+    commands  ir al estado 16
+
+
+estado 13
+
+    5 declarations: STRING id_seq IDENTIFIER '.' .
+
+    $default  reduce usando la regla 5 (declarations)
+
+
+estado 14
+
+    7 id_seq: id_seq IDENTIFIER ',' .
+
+    $default  reduce usando la regla 7 (id_seq)
+
+
+estado 15
+
+    4 declarations: INTEGER id_seq IDENTIFIER '.' .
+
+    $default  reduce usando la regla 4 (declarations)
+
+
+estado 16
+
+    2 program: LET declarations IN $@1 commands . END
+    9 commands: commands . command ';'
+
+    IDENTIFIER  desplazar e ir al estado 17
+    IF          desplazar e ir al estado 18
+    WHILE       desplazar e ir al estado 19
+    SKIP        desplazar e ir al estado 20
+    END         desplazar e ir al estado 21
+    READ        desplazar e ir al estado 22
+    WRITE       desplazar e ir al estado 23
+    PRINT       desplazar e ir al estado 24
+
+    command  ir al estado 25
+
+
+estado 17
+
+   14 command: IDENTIFIER . ASSGNOP exp
+
+    ASSGNOP  desplazar e ir al estado 26
+
+
+estado 18
+
+   18 command: IF . exp $@2 THEN commands $@3 ELSE $@4 commands FI
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 30
+
+
+estado 19
+
+   21 command: WHILE . $@5 exp $@6 DO commands END
+
+    $default  reduce usando la regla 19 ($@5)
+
+    $@5  ir al estado 31
+
+
+estado 20
+
+   10 command: SKIP .
+
+    $default  reduce usando la regla 10 (command)
+
+
+estado 21
+
+    2 program: LET declarations IN $@1 commands END .
+
+    $default  reduce usando la regla 2 (program)
+
+
+estado 22
+
+   11 command: READ . IDENTIFIER
+
+    IDENTIFIER  desplazar e ir al estado 32
+
+
+estado 23
+
+   12 command: WRITE . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 33
+
+
+estado 24
+
+   13 command: PRINT . '(' STRING ')'
+
+    '('  desplazar e ir al estado 34
+
+
+estado 25
+
+    9 commands: commands command . ';'
+
+    ';'  desplazar e ir al estado 35
+
+
+estado 26
+
+   14 command: IDENTIFIER ASSGNOP . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 36
+
+
+estado 27
+
+   22 exp: NUMBER .
+
+    $default  reduce usando la regla 22 (exp)
+
+
+estado 28
+
+   23 exp: IDENTIFIER .
+
+    $default  reduce usando la regla 23 (exp)
+
+
+estado 29
+
+   32 exp: '(' . exp ')'
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 37
+
+
+estado 30
+
+   18 command: IF exp . $@2 THEN commands $@3 ELSE $@4 commands FI
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    $default  reduce usando la regla 15 ($@2)
+
+    $@2  ir al estado 46
+
+
+estado 31
+
+   21 command: WHILE $@5 . exp $@6 DO commands END
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 47
+
+
+estado 32
+
+   11 command: READ IDENTIFIER .
+
+    $default  reduce usando la regla 11 (command)
+
+
+estado 33
+
+   12 command: WRITE exp .
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    $default  reduce usando la regla 12 (command)
+
+
+estado 34
+
+   13 command: PRINT '(' . STRING ')'
+
+    STRING  desplazar e ir al estado 48
+
+
+estado 35
+
+    9 commands: commands command ';' .
+
+    $default  reduce usando la regla 9 (commands)
+
+
+estado 36
+
+   14 command: IDENTIFIER ASSGNOP exp .
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    $default  reduce usando la regla 14 (command)
+
+
+estado 37
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+   32    | '(' exp . ')'
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    ')'  desplazar e ir al estado 49
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+
+estado 38
+
+   28 exp: exp '-' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 50
+
+
+estado 39
+
+   27 exp: exp '+' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 51
+
+
+estado 40
+
+   29 exp: exp '*' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 52
+
+
+estado 41
+
+   30 exp: exp '/' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 53
+
+
+estado 42
+
+   31 exp: exp '^' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 54
+
+
+estado 43
+
+   24 exp: exp '<' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 55
+
+
+estado 44
+
+   25 exp: exp '=' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 56
+
+
+estado 45
+
+   26 exp: exp '>' . exp
+
+    NUMBER      desplazar e ir al estado 27
+    IDENTIFIER  desplazar e ir al estado 28
+    '('         desplazar e ir al estado 29
+
+    exp  ir al estado 57
+
+
+estado 46
+
+   18 command: IF exp $@2 . THEN commands $@3 ELSE $@4 commands FI
+
+    THEN  desplazar e ir al estado 58
+
+
+estado 47
+
+   21 command: WHILE $@5 exp . $@6 DO commands END
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    $default  reduce usando la regla 20 ($@6)
+
+    $@6  ir al estado 59
+
+
+estado 48
+
+   13 command: PRINT '(' STRING . ')'
+
+    ')'  desplazar e ir al estado 60
+
+
+estado 49
+
+   32 exp: '(' exp ')' .
+
+    $default  reduce usando la regla 32 (exp)
+
+
+estado 50
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   28    | exp '-' exp .
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '<'       [reduce usando la regla 28 (exp)]
+    '='       [reduce usando la regla 28 (exp)]
+    '>'       [reduce usando la regla 28 (exp)]
+    $default  reduce usando la regla 28 (exp)
+
+
+estado 51
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   27    | exp '+' exp .
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '<'       [reduce usando la regla 27 (exp)]
+    '='       [reduce usando la regla 27 (exp)]
+    '>'       [reduce usando la regla 27 (exp)]
+    $default  reduce usando la regla 27 (exp)
+
+
+estado 52
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   29    | exp '*' exp .
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '<'       [reduce usando la regla 29 (exp)]
+    '='       [reduce usando la regla 29 (exp)]
+    '>'       [reduce usando la regla 29 (exp)]
+    $default  reduce usando la regla 29 (exp)
+
+
+estado 53
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   30    | exp '/' exp .
+   31    | exp . '^' exp
+
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '<'       [reduce usando la regla 30 (exp)]
+    '='       [reduce usando la regla 30 (exp)]
+    '>'       [reduce usando la regla 30 (exp)]
+    $default  reduce usando la regla 30 (exp)
+
+
+estado 54
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+   31    | exp '^' exp .
+
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '<'       [reduce usando la regla 31 (exp)]
+    '='       [reduce usando la regla 31 (exp)]
+    '>'       [reduce usando la regla 31 (exp)]
+    $default  reduce usando la regla 31 (exp)
+
+
+estado 55
+
+   24 exp: exp . '<' exp
+   24    | exp '<' exp .
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '-'       [reduce usando la regla 24 (exp)]
+    '+'       [reduce usando la regla 24 (exp)]
+    '*'       [reduce usando la regla 24 (exp)]
+    '/'       [reduce usando la regla 24 (exp)]
+    '^'       [reduce usando la regla 24 (exp)]
+    '<'       [reduce usando la regla 24 (exp)]
+    '='       [reduce usando la regla 24 (exp)]
+    '>'       [reduce usando la regla 24 (exp)]
+    $default  reduce usando la regla 24 (exp)
+
+
+estado 56
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   25    | exp '=' exp .
+   26    | exp . '>' exp
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '-'       [reduce usando la regla 25 (exp)]
+    '+'       [reduce usando la regla 25 (exp)]
+    '*'       [reduce usando la regla 25 (exp)]
+    '/'       [reduce usando la regla 25 (exp)]
+    '^'       [reduce usando la regla 25 (exp)]
+    '<'       [reduce usando la regla 25 (exp)]
+    '='       [reduce usando la regla 25 (exp)]
+    '>'       [reduce usando la regla 25 (exp)]
+    $default  reduce usando la regla 25 (exp)
+
+
+estado 57
+
+   24 exp: exp . '<' exp
+   25    | exp . '=' exp
+   26    | exp . '>' exp
+   26    | exp '>' exp .
+   27    | exp . '+' exp
+   28    | exp . '-' exp
+   29    | exp . '*' exp
+   30    | exp . '/' exp
+   31    | exp . '^' exp
+
+    '-'  desplazar e ir al estado 38
+    '+'  desplazar e ir al estado 39
+    '*'  desplazar e ir al estado 40
+    '/'  desplazar e ir al estado 41
+    '^'  desplazar e ir al estado 42
+    '<'  desplazar e ir al estado 43
+    '='  desplazar e ir al estado 44
+    '>'  desplazar e ir al estado 45
+
+    '-'       [reduce usando la regla 26 (exp)]
+    '+'       [reduce usando la regla 26 (exp)]
+    '*'       [reduce usando la regla 26 (exp)]
+    '/'       [reduce usando la regla 26 (exp)]
+    '^'       [reduce usando la regla 26 (exp)]
+    '<'       [reduce usando la regla 26 (exp)]
+    '='       [reduce usando la regla 26 (exp)]
+    '>'       [reduce usando la regla 26 (exp)]
+    $default  reduce usando la regla 26 (exp)
+
+
+estado 58
+
+   18 command: IF exp $@2 THEN . commands $@3 ELSE $@4 commands FI
+
+    $default  reduce usando la regla 8 (commands)
+
+    commands  ir al estado 61
+
+
+estado 59
+
+   21 command: WHILE $@5 exp $@6 . DO commands END
+
+    DO  desplazar e ir al estado 62
+
+
+estado 60
+
+   13 command: PRINT '(' STRING ')' .
+
+    $default  reduce usando la regla 13 (command)
+
+
+estado 61
+
+    9 commands: commands . command ';'
+   18 command: IF exp $@2 THEN commands . $@3 ELSE $@4 commands FI
+
+    IDENTIFIER  desplazar e ir al estado 17
+    IF          desplazar e ir al estado 18
+    WHILE       desplazar e ir al estado 19
+    SKIP        desplazar e ir al estado 20
+    READ        desplazar e ir al estado 22
+    WRITE       desplazar e ir al estado 23
+    PRINT       desplazar e ir al estado 24
+
+    $default  reduce usando la regla 16 ($@3)
+
+    command  ir al estado 25
+    $@3      ir al estado 63
+
+
+estado 62
+
+   21 command: WHILE $@5 exp $@6 DO . commands END
+
+    $default  reduce usando la regla 8 (commands)
+
+    commands  ir al estado 64
+
+
+estado 63
+
+   18 command: IF exp $@2 THEN commands $@3 . ELSE $@4 commands FI
+
+    ELSE  desplazar e ir al estado 65
+
+
+estado 64
+
+    9 commands: commands . command ';'
+   21 command: WHILE $@5 exp $@6 DO commands . END
+
+    IDENTIFIER  desplazar e ir al estado 17
+    IF          desplazar e ir al estado 18
+    WHILE       desplazar e ir al estado 19
+    SKIP        desplazar e ir al estado 20
+    END         desplazar e ir al estado 66
+    READ        desplazar e ir al estado 22
+    WRITE       desplazar e ir al estado 23
+    PRINT       desplazar e ir al estado 24
+
+    command  ir al estado 25
+
+
+estado 65
+
+   18 command: IF exp $@2 THEN commands $@3 ELSE . $@4 commands FI
+
+    $default  reduce usando la regla 17 ($@4)
+
+    $@4  ir al estado 67
+
+
+estado 66
+
+   21 command: WHILE $@5 exp $@6 DO commands END .
+
+    $default  reduce usando la regla 21 (command)
+
+
+estado 67
+
+   18 command: IF exp $@2 THEN commands $@3 ELSE $@4 . commands FI
+
+    $default  reduce usando la regla 8 (commands)
+
+    commands  ir al estado 68
+
+
+estado 68
+
+    9 commands: commands . command ';'
+   18 command: IF exp $@2 THEN commands $@3 ELSE $@4 commands . FI
+
+    IDENTIFIER  desplazar e ir al estado 17
+    IF          desplazar e ir al estado 18
+    WHILE       desplazar e ir al estado 19
+    SKIP        desplazar e ir al estado 20
+    FI          desplazar e ir al estado 69
+    READ        desplazar e ir al estado 22
+    WRITE       desplazar e ir al estado 23
+    PRINT       desplazar e ir al estado 24
+
+    command  ir al estado 25
+
+
+estado 69
+
+   18 command: IF exp $@2 THEN commands $@3 ELSE $@4 commands FI .
+
+    $default  reduce usando la regla 18 (command)

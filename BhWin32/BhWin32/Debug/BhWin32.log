@@ -1,0 +1,3 @@
+﻿  BhWin32.cpp
+C:\Users\Lenovo\Desktop\Escritorio\Ingenieria en software\8vo\Compiladores e Interpretes\BhWin32\BhWin32\BhWin32.cpp(192,11): warning C4101: 'dwEVM': variable local sin referencia
+  BhWin32.vcxproj -> C:\Users\Lenovo\Desktop\Escritorio\Ingenieria en software\8vo\Compiladores e Interpretes\BhWin32\Debug\BhWin32.exe
